@@ -39,139 +39,58 @@
 					<li><a href="#team">Team</a></li>
 					<li><a href="#social">Social</a></li>
 					<li><a href="#contact">Contact</a></li>
-					<li><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">Login</button></li>
-					<li><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal2">Register</button></li>
-			
+					{% if user.is_authenticated %}
+					<li>
+					<a class="nav-link" href="{% url 'dashboard' %}"> {{user.username}} | Dashboard</a>
+					</li>
+					<li class="nav-item mr-3">
+						<a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+							<i class="fas fa-sign-out-alt"></i> Logout
+						</a>
+						<form action="{% url 'logout' %}" method="POST" id="logout">
+							{% csrf_token %}
+							<input type="hidden">
+						</form>
+					</li>
+				{% else %}
+				<li {% if 'login' in request.path %}
+						class="nav-item active mr-3"
+					{% else %}
+						class="nav-item mr-3"
+					{% endif %}>
+						<a href="#login" data-toggle="modal" data-target="#myModal">Login</a>
+				</li>
+				<li {% if 'register' in request.path %}
+						class="nav-item active mr-3"
+					{% else %}
+						class="nav-item mr-3"
+					{% endif %}>
+					<a href="#register" data-toggle="modal" data-target="#myModal2">Register</a>
+					</li>
+					{% endif %}
+					</ul>
 				</ul>
 				<!-- /Main navigation -->
+
+				</div>
 			</div>
 		</nav>
 		<!-- /Nav -->
 
-		<!-- Login -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Login form</h4>
-					</div>
-					<div class="modal-body">
-					<!-- Alerts -->
-					{% include 'partials/_alerts.html' %}
-						<form method="POST">
-						{% csrf_token %}
-							<div class="form-group">
-								<label for="email">Email address</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<input type="email" class="form-control" id="email" placeholder="Email">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="password">Password</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<input type="password" class="form-control" id="pws" placeholder="Password">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-								</div>
-							</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<input type="submit" class="btn btn-primary" value ="Login">
-					</div>
-						</form>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<!-- /Login -->
-
-		<!-- Register -->
-		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Registration form</h4>
-					</div>
-					<div class="modal-body">
-					<!-- Alerts -->
-					{% include 'partials/_alerts.html' %}
-
-						<form method="POST" class="pb-modalreglog-form-reg">
-						{% csrf_token %}
-							<div class="form-group">
-								<div id="pb-modalreglog-progressbar"></div>
-							</div>
-							<div class="form-group">
-								<label for="first_name">First Name</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									<input type="text" class="form-control" id="inputFirst_Name" placeholder="First Name">
-								</div>
-							<div class="form-group">
-								<label for="last_name">Last Name</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									<input type="text" class="form-control" id="inputLast_Name" placeholder="Last Name">
-							</div>
-							<div class="form-group">
-								<label for="username">User Name</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									<input type="text" class="form-control" id="inputUserName" placeholder="User Name">
-							</div>
-							<div class="form-group">
-								<label for="email">Email address</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									<input type="email" class="form-control" id="inputEmail" placeholder="Email">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="password">Password</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-									<input type="password" class="form-control" id="inputPws" placeholder="Password">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="password2">Confirm password</label>
-								<div class="input-group pb-modalreglog-input-group">
-									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-									<input type="password" class="form-control" id="inputConfirmPws" placeholder="Confirm Password">
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="checkbox" id="ch" name="chs">
-								I agree with <a href="#">terms and conditions.</a>
-							</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="Submit" class="btn btn-primary">Sign up</button>
-					</div>
-						</form>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<!-- /Register -->
+		<!--login-->
+		{% include 'accounts/login.html' %}
+		<!--register-->
+		{% include 'accounts/register.html'%}
 
 		<!-- home wrapper -->
+		
 		<div class="home-wrapper">
 			<div class="container">
 				<div class="row">
 
 					<!-- home content -->
 					<div class="col-md-10 col-md-offset-1">
-						<div class="home-content">
+						<div class="home-content" style="margin:auto">
 							<h1 class="white-text">We provide <strong>Solutions</strong> for your business</h1>
 							<!-- <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
 							</p> -->
@@ -188,3 +107,5 @@
 
 	</header>
 	<!-- /Header -->
+
+	

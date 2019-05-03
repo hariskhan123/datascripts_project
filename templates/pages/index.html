@@ -726,15 +726,14 @@
 
 				<!-- contact form -->
 				<div class="col-md-8 col-md-offset-2">
-					<form method="POST" class="contact-form" id="fr1" enctype="multipart/form-data">
-						{% csrf_token %}
+					<form action="{% url 'contact' %}" method="POST" class="contact-form" id="fr1" enctype="multipart/form-data">{% csrf_token %}
 						<div class="form-group">
               <label for="name" class="col-form-label">Name:</label>
-              <input type="text" name="name" placeholder="Name" class="form-control">
+              <input type="text" name="name" placeholder="Name" class="form-control" required>
             </div>
             <div class="form-group">
               <label for="email" class="col-form-label">Email:</label>
-              <input type="email" name="email" placeholder="Email" class="form-control">
+              <input type="email" name="email" placeholder="Email" class="form-control" required>
             </div>
 						<div class="form-group">
               <label for="subject" class="col-form-label">Subject:</label>
@@ -742,14 +741,14 @@
             </div>
             <div class="form-group">
               <label for="phone" class="col-form-label">Phone:</label>
-              <input type="text" name="phone" placeholder="Phone" class="form-control">
+              <input type="text" name="phone" placeholder="Phone" class="form-control" required>
             </div>
             <div class="form-group">
               <label for="message" class="col-form-label">Message:</label>
               <textarea name="message" placeholder="Message" class="form-control"></textarea>
             </div>
-						<input id='bt1' type="submit" class="main-btn" value="Send Message">
-						</form>
+						<input type="submit" class="main-btn" value="Send Message" id='bt1'>
+					</form>
 				</div>
 				<!-- /contact form -->
 

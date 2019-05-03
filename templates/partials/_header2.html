@@ -31,31 +31,48 @@
 					<li><a href="{% url 'index' %}#service">Services</a></li>
 					<li><a href="{% url 'index' %}#pricing">Prices</a></li>
 					<li><a href="{% url 'index' %}#team">Team</a></li>
-					<li class="has-dropdown"><a>Blog</a>
-						<ul class="dropdown">
-							<li><a href="#">blog post</a></li>
-						</ul>
-					</li>
 					<li><a href="{% url 'index' %}#contact">Contact</a></li>
-				</ul>
+				{% if user.is_authenticated %}
+					<li>
+					<a class="nav-link" href="{% url 'dashboard' %}">{{user.username}} | Dashboard</a>
+					</li>
+					<li class="nav-item mr-3">
+						<a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+							<i class="fas fa-sign-out-alt"></i> Logout
+						</a>
+						<form action="{% url 'logout' %}" method="POST" id="logout">{% csrf_token %}
+							<input type="hidden">
+						</form>
+					</li>
+				{% else %}
+				<li {% if 'login' in request.path %}
+						class="nav-item active mr-3"
+					{% else %}
+						class="nav-item mr-3"
+					{% endif %}>
+						<a href="#login" data-toggle="modal" data-target="#myModal">Login</a>
+				</li>
+				<li {% if 'register' in request.path %}
+						class="nav-item active mr-3"
+					{% else %}
+						class="nav-item mr-3"
+					{% endif %}>
+					<a href="#register" data-toggle="modal" data-target="#myModal2">Register</a>
+					</li>
+					{% endif %}
+					</ul>
 				<!-- /Main navigation -->
 
 			</div>
 		</nav>
 		<!-- /Nav -->
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
 
-		<!-- header wrapper -->
-		<div class="header-wrapper sm-padding bg-grey">
-			<div class="container">
-				<h2>Blog Page</h2>
-				<ul class="breadcrumb">
-					<li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-					<li class="breadcrumb-item"><a href="{% url 'index' %}#blog">Blog</a></li>
-					<li class="breadcrumb-item active">Single Post</li>
-				</ul>
-			</div>
-		</div>
-		<!-- /header wrapper -->
+	<!--login-->
+	{% include 'accounts/login.html' %}
+	<!--register-->
+	{% include 'accounts/register.html'%}
 
 	</header>
 	<!-- /Header -->

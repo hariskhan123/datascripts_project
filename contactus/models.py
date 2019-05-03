@@ -4,7 +4,7 @@ from django.db import models
 
 from datetime import datetime
 
-class ContactForm(models.Model):
+class Contact(models.Model):
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)

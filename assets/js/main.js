@@ -1,3 +1,7 @@
+setTimeout(function() {
+	$('message').fadeOut('slow');
+}, 3000);
+
 (function($) {
 	"use strict"
 
@@ -6,6 +10,12 @@
 	$(window).on('load', function() {
 		$("#preloader").delay(600).fadeOut();
 	});
+
+	///////////////////////////
+	// Alert Message Time out
+	setTimeout(function() {
+		$('message').fadeOut('slow');
+	}, 3000);
 
 	///////////////////////////
 	// Scrollspy

@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'contactus.apps.ContactusConfig',
     'accounts.apps.AccountsConfig',
-    'ContactForm.apps.ContactFormConfig',
     'pages.apps.PagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -139,6 +139,6 @@ MESSAGE_TAGS = {
 # Email Config
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'hariswork1234@gmail.com'
+EMAIL_HOST_USER = 'hariswork123@gmail.com'
 EMAIL_HOST_PASSWORD = '4209211007'
 EMAIL_USE_TLS=True
